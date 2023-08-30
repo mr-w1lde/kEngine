@@ -1,12 +1,10 @@
 package engine.system
 
-import engine.common.gEngine
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RegisterPlugin
 import engine.common.plugin.SYSTEM_PLUGIN_ORDER
 import org.lwjgl.Version
-import org.lwjgl.glfw.GLFW
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.glfw.GLFWErrorCallback
 

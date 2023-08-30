@@ -9,9 +9,7 @@ import engine.common.log.log
 import engine.common.plugin.PluginManager
 import engine.common.render.Render
 import engine.common.render.window.Window
-import java.lang.RuntimeException
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.Volatile
 import kotlin.reflect.KClass
 
 object GameApplication {

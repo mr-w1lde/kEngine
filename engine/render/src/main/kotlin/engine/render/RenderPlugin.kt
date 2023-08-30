@@ -1,7 +1,6 @@
 package engine.render
 
 import engine.common.gEngine
-import engine.common.input.ApplicationEventListener
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RENDER_PLUGIN_ORDER

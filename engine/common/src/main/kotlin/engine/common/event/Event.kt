@@ -1,6 +1,6 @@
 package engine.common.event
 
-private fun BIT(x: Int) = 1 shl x
+private fun bit(x: Int) = 1 shl x
 
 private interface WithSifting {
     val flag: Int
@@ -18,12 +18,12 @@ enum class EventType {
 
 @Suppress("MagicNumber")
 enum class EventClassification(override val flag: Int) : WithSifting {
-    Application(BIT(0)),
+    Application(bit(0)),
 
-    Input(BIT(1)),
-    Keyboard(BIT(2)),
-    Mouse(BIT(3)),
-    MouseButton(BIT(4)),
+    Input(bit(1)),
+    Keyboard(bit(2)),
+    Mouse(bit(3)),
+    MouseButton(bit(4)),
 }
 
 infix fun <T : WithSifting> T.or(other: T): Int = flag or other.flag

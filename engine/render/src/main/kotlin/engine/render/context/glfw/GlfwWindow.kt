@@ -3,7 +3,6 @@ package engine.render.context.glfw
 import engine.common.log.log
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
-import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.system.MemoryUtil
 
