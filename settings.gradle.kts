@@ -3,6 +3,8 @@ include(
     ":launcherDarwin",
     ":engine:common",
     ":engine:system",
+    ":engine:render",
+    ":engine:input",
 
     ":gameMain"
 )

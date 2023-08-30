@@ -20,6 +20,7 @@ allprojects {
             implementation("ch.qos.logback:logback-classic:1.4.11")
 
             compileOnly("org.reflections:reflections:0.10.2")
+            compileOnly("org.lwjgl:lwjgl-glfw:${project.extra["lwjglVersion"]}")
         }
 
     }

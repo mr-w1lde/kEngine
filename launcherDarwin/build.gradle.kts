@@ -9,17 +9,27 @@ repositories {
     mavenCentral()
 }
 
+val lwjglPlatform = "natives-macos-arm64"
+
 dependencies {
     // Engine
     implementation(projects.engine.common)
+    implementation(projects.engine.render)
     implementation(projects.engine.system)
-
+    implementation(projects.engine.input)
 
     // Game
     implementation(projects.gameMain)
 
-    // Needed
+    // SDK
     implementation("org.reflections:reflections:0.10.2")
+    implementation(platform("org.lwjgl:lwjgl-bom:${project.extra["lwjglVersion"]}"))
+    implementation("org.lwjgl:lwjgl-glfw:${project.extra["lwjglVersion"]}")
+    implementation("org.lwjgl:lwjgl-opengl:${project.extra["lwjglVersion"]}")
+
+    // Runtime
+    runtimeOnly("org.lwjgl:lwjgl::$lwjglPlatform")
+    runtimeOnly("org.lwjgl:lwjgl-opengl::$lwjglPlatform")
 }
 
 tasks {
@@ -27,9 +37,12 @@ tasks {
         mainClass = "launcher.MainKt"
     }
     runShadow {
-        jvmArgs?.plusAssign(
-            listOf("-XstartOnFirstThread")
-        )
+        val args = listOf("-XstartOnFirstThread")
+        if (jvmArgs != null) {
+            jvmArgs!!.plusAssign(args)
+        } else {
+            jvmArgs = args
+        }
     }
 }
 

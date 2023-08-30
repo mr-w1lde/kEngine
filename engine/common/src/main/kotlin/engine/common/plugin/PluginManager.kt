@@ -25,7 +25,7 @@ object PluginManager {
     }
 
     fun sendOnShutdownToAll() {
-        plugins.values.forEach {
+        plugins.values.reversed().forEach {
             it.onShutdown()
         }
     }
