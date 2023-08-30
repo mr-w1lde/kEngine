@@ -15,12 +15,12 @@ interface EnginePlugin {
     /**
      * Gets called whenever the Engine starts your game
      * */
-    fun onGameStart()
+    fun onGameStart() {}
 
     /**
      * Gets called whenever the Engine stops your game
      * */
-    fun onGameStop()
+    fun onGameStop() {}
 
     /**
      * Gets called whenever the engine is trying to shut down a plugin.

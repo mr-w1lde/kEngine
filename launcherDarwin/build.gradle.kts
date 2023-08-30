@@ -12,6 +12,7 @@ repositories {
 dependencies {
     // Engine
     implementation(projects.engine.common)
+    implementation(projects.engine.system)
 
 
     // Game

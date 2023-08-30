@@ -4,7 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":engine:system")))
     compileOnly(projects.engine.common)
-    compileOnly(projects.engine.system)
 }

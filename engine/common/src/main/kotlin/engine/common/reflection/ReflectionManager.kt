@@ -8,7 +8,6 @@ import org.reflections.scanners.Scanners.MethodsAnnotated
 import org.reflections.util.ConfigurationBuilder
 import org.reflections.util.FilterBuilder
 
-// TODO -> In Common?
 object ReflectionManager {
     private val reflections = Reflections(
         ConfigurationBuilder()

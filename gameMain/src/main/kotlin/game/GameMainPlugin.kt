@@ -5,13 +5,16 @@ import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RegisterPlugin
 
+private const val PLUGIN_NAME = "Game"
+
 @RegisterPlugin
-class EntryPoint : EnginePlugin {
+class GameMainPlugin : EnginePlugin {
     override val name: String
-        get() = "GameMain"
+        get() = PLUGIN_NAME
 
     override fun onInitialize() {
         log.trace("onInitialize")
+        log.trace("{}", gEngine)
         log.trace("{}", gEngine)
     }
 
