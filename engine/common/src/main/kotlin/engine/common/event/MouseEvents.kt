@@ -16,7 +16,7 @@ class MouseScrolledEvent(
     val xOffset: Double,
     val yOffset: Double,
 ) : Event(eventType, flags) {
-    override fun toString(): String = "MouseMoved(x: $xOffset, y: $yOffset)"
+    override fun toString(): String = "MouseScrolled(x: $xOffset, y: $yOffset)"
 
     companion object {
         val eventType = EventType.MouseScrolled
@@ -38,7 +38,7 @@ class MouseButtonPressedEvent(
 class MouseButtonReleasedEvent(
     val button: Int,
 ) : Event(eventType, flags) {
-    override fun toString(): String = "KeyReleased(button: $button)"
+    override fun toString(): String = "MouseButtonReleased(button: $button)"
 
     companion object {
         val eventType = EventType.MouseButtonReleased

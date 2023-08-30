@@ -32,13 +32,14 @@ class GameMainPlugin : EnginePlugin, InputEventListener {
 
     override fun onShutdown() {
         log.trace("onShutdown")
-        gEngine.input?.registerAnyInputEventListener(this)
+        gEngine.input?.removeAnyInputEventListener(this)
     }
 
     override fun onAnyInputEvent(event: Event) {
-        EventDispatcher<KeyPressedEvent>(event) {
-            log.trace("onAnyInputEvent : KeyPressedEvent : {}", it.keyCode)
-            true
-        }
+//        EventDispatcher<Event>(event) {
+//            log.trace("onAnyInputEvent, {}", it.toString())
+//            true
+//        }
+        log.trace("{}", event.toString())
     }
 }

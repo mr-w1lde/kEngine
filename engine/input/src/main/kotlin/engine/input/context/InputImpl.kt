@@ -10,9 +10,9 @@ import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 
 class InputImpl : Input {
-    private val anyInputEventListeners = mutableListOf<InputEventListener>()
+    private val anyInputEventListeners = mutableSetOf<InputEventListener>()
 
-    private val applicationEventListener = mutableListOf<ApplicationEventListener>()
+    private val applicationEventListener = mutableSetOf<ApplicationEventListener>()
 
     override fun registerAnyInputEventListener(clazz: InputEventListener) {
         anyInputEventListeners.add(clazz)
