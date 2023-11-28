@@ -22,22 +22,22 @@ dependencies {
     implementation(projects.gameMain)
 
     // SDK
-    implementation("org.reflections:reflections:0.10.2")
     implementation(platform("org.lwjgl:lwjgl-bom:${project.extra["lwjglVersion"]}"))
     implementation("org.lwjgl:lwjgl-glfw:${project.extra["lwjglVersion"]}")
     implementation("org.lwjgl:lwjgl-opengl:${project.extra["lwjglVersion"]}")
 
     // Runtime
     runtimeOnly("org.lwjgl:lwjgl::$lwjglPlatform")
+    runtimeOnly("org.lwjgl:lwjgl-glfw::$lwjglPlatform")
     runtimeOnly("org.lwjgl:lwjgl-opengl::$lwjglPlatform")
 }
 
 tasks {
     application {
-        mainClass = "launcher.MainKt"
+        mainClass = "launcher.LauncherKt"
     }
     runShadow {
-        val args = listOf("-XstartOnFirstThread")
+        val args = listOf("-XstartOnFirstThread", "-Dorg.lwjgl.util.Debug=true")
         if (jvmArgs != null) {
             jvmArgs!!.plusAssign(args)
         } else {

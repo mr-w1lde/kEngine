@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/engine" />
             <option value="$PROJECT_DIR$/engine/common" />
+            <option value="$PROJECT_DIR$/engine/input" />
             <option value="$PROJECT_DIR$/engine/render" />
             <option value="$PROJECT_DIR$/engine/system" />
             <option value="$PROJECT_DIR$/gameMain" />

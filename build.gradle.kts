@@ -18,8 +18,8 @@ allprojects {
             implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${project.extra["kotlinVersion"]}")
 
             implementation("ch.qos.logback:logback-classic:1.4.11")
+            implementation("org.reflections:reflections:0.10.2")
 
-            compileOnly("org.reflections:reflections:0.10.2")
             compileOnly("org.lwjgl:lwjgl-glfw:${project.extra["lwjglVersion"]}")
         }
 
