@@ -66,10 +66,11 @@ class GlfwWindow private constructor(
                 ).also { window ->
                     glfwMakeContextCurrent(window.id)
                     glfwShowWindow(window.id)
-                    window.setVSync(false)
+                    window.setVSync(props.vSync)
+
                     GL.createCapabilities() // Should we initialize it here?
                 },
-                    enableGui = !isARMArchitecture() // ImGui JNI Version is not supported for ARM (yet)
+                enableGui = !isARMArchitecture() // ImGui JNI Version is not supported for ARM (yet)
             )
         }
     }
