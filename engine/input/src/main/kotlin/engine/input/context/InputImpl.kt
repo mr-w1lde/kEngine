@@ -6,6 +6,7 @@ import engine.common.input.ApplicationEventListener
 import engine.common.input.Input
 import engine.common.input.InputEventListener
 import engine.common.log.log
+import engine.input.exception.InputRuntimeException
 import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 
@@ -32,7 +33,7 @@ internal class InputImpl : Input {
 
     fun registerGlfwCallbacks() {
         log.debug("Registering Glfw Callbacks")
-        val windowId = getRender().mainWindow?.id ?: throw RuntimeException(
+        val windowId = getRender().mainWindow?.id ?: throw InputRuntimeException(
             "mainWindow is null to register Glfw Callbacks"
         )
 
@@ -67,7 +68,7 @@ internal class InputImpl : Input {
 
     fun unregisterGflwCallbacks() {
         log.debug("Unregistering Glfw Callbacks")
-        val windowId = getRender().mainWindow?.id ?: throw RuntimeException(
+        val windowId = getRender().mainWindow?.id ?: throw InputRuntimeException(
             "mainWindow is null to unregister Glfw Callbacks"
         )
 

@@ -7,7 +7,12 @@ import engine.common.input.ApplicationEventListener
 import engine.common.log.log
 import engine.common.plugin.PluginManager
 import engine.common.render.window.Window
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.Volatile
 import kotlin.reflect.KClass
 
 object GameApplication {
@@ -17,6 +22,7 @@ object GameApplication {
 
     private val applicationEventsHandler = ApplicationEventsHandler()
 
+    @Volatile
     private var isRunning: Boolean = false
 
     @Suppress("TooGenericExceptionCaught")
@@ -39,6 +45,7 @@ object GameApplication {
         }
     }
 
+    @Suppress("TooGenericExceptionThrown")
     private fun init(startTime: Long) {
         PluginManager.loadPlugins()
         PluginManager.sendOnInitializeToAll()
@@ -54,6 +61,7 @@ object GameApplication {
 
     private fun run() {
         isRunning = true
+        // Main Game-Loop Thread
         while (isRunning) {
             mainWindow.onUpdate()
         }

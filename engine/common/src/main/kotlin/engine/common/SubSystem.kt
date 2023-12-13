@@ -22,10 +22,10 @@ interface SubSystem {
             val subSystemKlass = subSystem::class
                 .superclasses
                 .find { it.isSubclassOf(SubSystem::class) }
-                ?: throw java.lang.RuntimeException("SubSystem interface for ${subSystem::class.simpleName} not found")
+                ?: throw RuntimeException("SubSystem interface for ${subSystem::class.simpleName} not found")
 
             synchronized(this) {
-                if (engineSubSystems.containsKey(subSystemKlass)) {
+                assert(engineSubSystems.containsKey(subSystemKlass)) {
                     throw RuntimeException("SubSystem already registered!")
                 }
 

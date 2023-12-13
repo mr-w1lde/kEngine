@@ -3,6 +3,7 @@ package engine.render.context.glfw
 import engine.common.log.log
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
+import engine.render.exception.RenderRuntimeException
 import org.lwjgl.glfw.GLFW
 import org.lwjgl.system.MemoryUtil
 
@@ -46,7 +47,9 @@ class GlfwWindow private constructor(
             val windowId =
                 GLFW.glfwCreateWindow(props.width, props.height, props.title, MemoryUtil.NULL, MemoryUtil.NULL)
 
-            assert(windowId == MemoryUtil.NULL) { throw RuntimeException("Failed to create the GLFW window") }
+            assert(windowId == MemoryUtil.NULL) {
+                throw RenderRuntimeException("Failed to create the GLFW window")
+            }
 
             return GlfwWindow(
                 id = windowId,

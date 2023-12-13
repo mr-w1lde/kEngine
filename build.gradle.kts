@@ -21,6 +21,10 @@ allprojects {
             implementation("org.reflections:reflections:0.10.2")
             implementation("dev.romainguy:kotlin-math:1.5.3")
 
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+            runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.3")
+
             compileOnly("org.lwjgl:lwjgl-glfw:${project.extra["lwjglVersion"]}")
         }
 

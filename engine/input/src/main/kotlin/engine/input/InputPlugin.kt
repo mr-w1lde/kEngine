@@ -25,7 +25,7 @@ class InputPlugin : EnginePlugin {
     }
 
     override fun onShutdown() {
-        getSubSystem(InputImpl::class).unregisterGflwCallbacks()
+        inputSystem.unregisterGflwCallbacks()
         log.debug("onShutdown")
     }
 }

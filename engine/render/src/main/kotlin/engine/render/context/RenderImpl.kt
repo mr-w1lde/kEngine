@@ -4,7 +4,7 @@ import engine.common.render.Render
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
 import engine.render.context.glfw.GlfwWindow
-import java.lang.RuntimeException
+import engine.render.exception.RenderRuntimeException
 
 internal class RenderImpl : Render {
     override var mainWindow: Window? = null
@@ -13,7 +13,7 @@ internal class RenderImpl : Render {
     override fun createWindow(props: WindowProps): Window {
         if (mainWindow != null) {
             // Support now only one Window
-            throw RuntimeException("Window already exist!")
+            throw RenderRuntimeException("mainWindow already exist!")
         }
 
         mainWindow = GlfwWindow.create(props)
