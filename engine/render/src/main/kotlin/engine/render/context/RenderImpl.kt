@@ -6,7 +6,7 @@ import engine.common.render.window.WindowProps
 import engine.render.context.glfw.GlfwWindow
 import java.lang.RuntimeException
 
-class RenderImpl : Render {
+internal class RenderImpl : Render {
     override var mainWindow: Window? = null
 
     @Synchronized

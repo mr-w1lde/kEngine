@@ -1,6 +1,11 @@
 package engine.common.input
 
-interface Input {
+import engine.common.SubSystem
+
+/**
+ * Engine Input SubSystem
+ * */
+interface Input : SubSystem {
     fun registerAnyInputEventListener(clazz: InputEventListener)
 
     fun removeAnyInputEventListener(clazz: InputEventListener)

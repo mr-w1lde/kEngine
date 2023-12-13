@@ -4,10 +4,8 @@ import engine.common.event.Event
 import engine.common.event.EventDispatcher
 import engine.common.event.WindowClosedEvent
 import engine.common.input.ApplicationEventListener
-import engine.common.input.Input
 import engine.common.log.log
 import engine.common.plugin.PluginManager
-import engine.common.render.Render
 import engine.common.render.window.Window
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
@@ -28,11 +26,6 @@ object GameApplication {
         GameApplication.primarySource = primarySource
         appArgs = args
 
-        gEngine = object : Engine {
-            override var input: Input? = null
-            override var render: Render? = null
-        }
-
         log.debug("Initializing Game Application")
 
         try {
@@ -50,9 +43,9 @@ object GameApplication {
         PluginManager.loadPlugins()
         PluginManager.sendOnInitializeToAll()
 
-        mainWindow = gEngine.render?.mainWindow ?: throw RuntimeException("Couldn't get a Window")
+        mainWindow = getRender().mainWindow ?: throw RuntimeException("Couldn't get a Window")
 
-        gEngine.input!!.registerApplicationEventListener(applicationEventsHandler)
+        getInput().registerApplicationEventListener(applicationEventsHandler)
 
         val endTime = System.nanoTime() - startTime
         val endTimeInMillis = TimeUnit.NANOSECONDS.toMillis(endTime)
@@ -69,7 +62,7 @@ object GameApplication {
     private fun shutdown() {
         log.trace("Shutting down the Application")
         // maybe some async?
-        gEngine.input!!.removeApplicationEventListener(applicationEventsHandler)
+        getInput().removeApplicationEventListener(applicationEventsHandler)
         PluginManager.sendOnShutdownToAll()
     }
 

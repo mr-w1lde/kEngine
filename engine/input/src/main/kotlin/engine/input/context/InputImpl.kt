@@ -1,7 +1,7 @@
 package engine.input.context
 
 import engine.common.event.*
-import engine.common.gEngine
+import engine.common.getRender
 import engine.common.input.ApplicationEventListener
 import engine.common.input.Input
 import engine.common.input.InputEventListener
@@ -9,7 +9,7 @@ import engine.common.log.log
 import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 
-class InputImpl : Input {
+internal class InputImpl : Input {
     private val anyInputEventListeners = mutableSetOf<InputEventListener>()
 
     private val applicationEventListener = mutableSetOf<ApplicationEventListener>()
@@ -32,7 +32,7 @@ class InputImpl : Input {
 
     fun registerGlfwCallbacks() {
         log.debug("Registering Glfw Callbacks")
-        val windowId = gEngine.render?.mainWindow?.id ?: throw RuntimeException(
+        val windowId = getRender().mainWindow?.id ?: throw RuntimeException(
             "mainWindow is null to register Glfw Callbacks"
         )
 
@@ -67,14 +67,14 @@ class InputImpl : Input {
 
     fun unregisterGflwCallbacks() {
         log.debug("Unregistering Glfw Callbacks")
-        val windowId = gEngine.render?.mainWindow?.id ?: throw RuntimeException(
+        val windowId = getRender().mainWindow?.id ?: throw RuntimeException(
             "mainWindow is null to unregister Glfw Callbacks"
         )
 
         Callbacks.glfwFreeCallbacks(windowId)
     }
 
-    // TODO -> Might be slow, might to implement some async bus
+    // TODO -> Might be slow, maybe implement some async bus
     private fun notifyAllAnyInputEventListeners(event: Event) =
         anyInputEventListeners.forEach { it.onAnyInputEvent(event) }
 

@@ -1,6 +1,7 @@
 package engine.input
 
-import engine.common.gEngine
+import engine.common.SubSystem
+import engine.common.getSubSystem
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.INPUT_PLUGIN_ORDER
@@ -11,18 +12,20 @@ private const val PLUGIN_NAME = "Input"
 
 @RegisterPlugin(order = INPUT_PLUGIN_ORDER)
 class InputPlugin : EnginePlugin {
+    private lateinit var inputSystem: InputImpl
+
     override val name: String
         get() = PLUGIN_NAME
 
     override fun onInitialize() {
         log.info("Initializing Input Plugin")
-        gEngine.input = InputImpl().also {
+        inputSystem = SubSystem.register { InputImpl() }.also {
             it.registerGlfwCallbacks()
         }
     }
 
     override fun onShutdown() {
-        (gEngine.input as InputImpl).unregisterGflwCallbacks()
+        getSubSystem(InputImpl::class).unregisterGflwCallbacks()
         log.debug("onShutdown")
     }
 }

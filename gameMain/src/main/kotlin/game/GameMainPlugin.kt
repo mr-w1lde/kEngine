@@ -1,7 +1,8 @@
 package game
 
 import engine.common.event.Event
-import engine.common.gEngine
+import engine.common.event.EventDispatcher
+import engine.common.getInput
 import engine.common.input.InputEventListener
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
@@ -17,7 +18,7 @@ class GameMainPlugin : EnginePlugin, InputEventListener {
     override fun onInitialize() {
         log.info("Initializing Game Plugin")
 
-        gEngine.input?.registerAnyInputEventListener(this)
+        getInput().registerAnyInputEventListener(this)
     }
 
     override fun onGameStart() {
@@ -30,14 +31,14 @@ class GameMainPlugin : EnginePlugin, InputEventListener {
 
     override fun onShutdown() {
         log.trace("onShutdown")
-        gEngine.input?.removeAnyInputEventListener(this)
+        getInput().removeAnyInputEventListener(this)
     }
 
     override fun onAnyInputEvent(event: Event) {
-//        EventDispatcher<Event>(event) {
-//            log.trace("onAnyInputEvent, {}", it.toString())
-//            true
-//        }
+        EventDispatcher<Event>(event) {
+            log.trace("onAnyInputEvent, {}", it.toString())
+            true
+        }
         log.trace("{}", event.toString())
     }
 }

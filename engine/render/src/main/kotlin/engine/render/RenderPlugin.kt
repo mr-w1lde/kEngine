@@ -1,6 +1,6 @@
 package engine.render
 
-import engine.common.gEngine
+import engine.common.SubSystem
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RENDER_PLUGIN_ORDER
@@ -13,6 +13,8 @@ private const val PLUGIN_NAME = "Render"
     order = RENDER_PLUGIN_ORDER
 )
 class RenderPlugin : EnginePlugin {
+    private lateinit var renderSubSystem: RenderImpl
+
     override val name: String
         get() = PLUGIN_NAME
 
@@ -20,13 +22,13 @@ class RenderPlugin : EnginePlugin {
         log.info("Initializing Render Plugin")
 
         // Initialize access
-        gEngine.render = RenderImpl().also {
+        renderSubSystem = SubSystem.register { RenderImpl() }.also {
             it.createWindow()
         }
     }
 
     override fun onShutdown() {
         log.debug("onShutdown")
-        gEngine.render?.mainWindow?.shutdown()
+        renderSubSystem.mainWindow?.shutdown()
     }
 }
