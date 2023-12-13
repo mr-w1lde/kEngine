@@ -10,6 +10,7 @@ enum class EventType {
     WindowClose,
     KeyPressed,
     KeyReleased,
+    KeyTyped,
     MouseMoved,
     MouseScrolled,
     MouseButtonPressed,

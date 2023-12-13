@@ -50,6 +50,10 @@ internal class BaseInput : Input {
             }
         }
 
+        GLFW.glfwSetCharCallback(windowId) { _: Long, key: Int ->
+            notifyAllAnyInputEventListeners(KeyTypedEvent(key))
+        }
+
         GLFW.glfwSetMouseButtonCallback(windowId) { _: Long, button: Int, action: Int, _: Int ->
             when (action) {
                 GLFW.GLFW_PRESS -> notifyAllAnyInputEventListeners(MouseButtonPressedEvent(button))
