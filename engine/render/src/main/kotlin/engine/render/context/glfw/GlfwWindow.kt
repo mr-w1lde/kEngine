@@ -1,11 +1,9 @@
 package engine.render.context.glfw
 
 import engine.common.log.log
-import engine.common.platform.isARMArchitecture
 import engine.common.platform.isDarwinPlatform
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
-import engine.render.context.imgui.ImGuiOpenGlWrapper
 import engine.render.exception.RenderRuntimeException
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.opengl.GL
@@ -57,21 +55,6 @@ class GlfwWindow private constructor(
             assert(windowId == MemoryUtil.NULL) {
                 throw RenderRuntimeException("Failed to create the GLFW window")
             }
-
-//            return ImGuiOpenGlWrapper(
-//                window = GlfwWindow(
-//                    id = windowId,
-//                    width = props.width,
-//                    height = props.height
-//                ).also { window ->
-//                    glfwMakeContextCurrent(window.id)
-//                    glfwShowWindow(window.id)
-//                    window.setVSync(props.vSync)
-//
-//                    GL.createCapabilities() // Should we initialize it here?
-//                },
-//                enableGui = !isARMArchitecture() // ImGui JNI Version is not supported for ARM (yet)
-//            )
 
             return GlfwWindow(
                 id = windowId,

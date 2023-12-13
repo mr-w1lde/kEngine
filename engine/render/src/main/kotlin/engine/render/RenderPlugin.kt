@@ -2,6 +2,7 @@ package engine.render
 
 import engine.common.SubSystem
 import engine.common.log.log
+import engine.common.platform.isARMArchitecture
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RENDER_PLUGIN_ORDER
 import engine.common.plugin.RegisterPlugin
@@ -28,7 +29,11 @@ class RenderPlugin : EnginePlugin {
             it.createWindow()
         }
 
-        renderSubSystem.layerStack().pushLayer(ImGuiLayer(renderSubSystem.mainWindow!!))
+        //Init ImGui
+        if (!isARMArchitecture()) {
+            log.info("Initializing ImGuiLayer because is not ARM Architecture (not supported yet)")
+            renderSubSystem.layerStack().pushLayer(ImGuiLayer(renderSubSystem.mainWindow!!))
+        }
     }
 
     override fun onShutdown() {
