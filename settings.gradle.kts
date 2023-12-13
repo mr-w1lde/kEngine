@@ -1,6 +1,8 @@
 rootProject.name = "kEngine"
 include(
     ":launcherDarwin",
+    ":launcherWin",
+
     ":engine:common",
     ":engine:system",
     ":engine:render",

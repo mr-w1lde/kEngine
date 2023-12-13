@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/engine/system" />
             <option value="$PROJECT_DIR$/gameMain" />
             <option value="$PROJECT_DIR$/launcherDarwin" />
+            <option value="$PROJECT_DIR$/launcherWin" />
           </set>
         </option>
       </GradleProjectSettings>
