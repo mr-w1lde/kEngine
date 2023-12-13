@@ -1,6 +1,8 @@
 package engine.render.context.glfw
 
 import engine.common.log.log
+import engine.common.platform.isARMArchitecture
+import engine.common.platform.isDarwinPlatform
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
 import engine.render.context.imgui.ImGuiOpenGlWrapper
@@ -8,7 +10,6 @@ import engine.render.exception.RenderRuntimeException
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.opengl.GL
 import org.lwjgl.system.MemoryUtil
-import org.lwjgl.system.Platform
 
 class GlfwWindow private constructor(
     override val id: Long,
@@ -47,7 +48,7 @@ class GlfwWindow private constructor(
             glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE) // the window will stay hidden after creation
             glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE) // the window will be resizable
 
-            if (Platform.get() == Platform.MACOSX) {
+            if (isDarwinPlatform()) {
                 glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE)
             }
 
@@ -58,7 +59,7 @@ class GlfwWindow private constructor(
             }
 
             return ImGuiOpenGlWrapper(
-                GlfwWindow(
+                window = GlfwWindow(
                     id = windowId,
                     width = props.width,
                     height = props.height
@@ -67,10 +68,9 @@ class GlfwWindow private constructor(
                     glfwShowWindow(window.id)
                     window.setVSync(false)
                     GL.createCapabilities() // Should we initialize it here?
-                }
-            ).also {
-                it.init()
-            }
+                },
+                    enableGui = !isARMArchitecture() // ImGui JNI Version is not supported for ARM (yet)
+            )
         }
     }
 }
