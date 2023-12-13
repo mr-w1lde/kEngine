@@ -8,4 +8,6 @@ interface LayerStack {
     fun popLayer(layer: Layer)
 
     fun popOverlay(overlay: Layer)
+
+    fun getLayers(): List<Layer>
 }

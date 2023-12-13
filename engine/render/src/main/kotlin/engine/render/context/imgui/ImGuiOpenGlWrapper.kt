@@ -3,8 +3,10 @@ package engine.render.context.imgui
 import engine.common.log.log
 import engine.common.render.window.Window
 import imgui.ImGui
+import imgui.flag.ImGuiConfigFlags
 import imgui.gl3.ImGuiImplGl3
 import imgui.glfw.ImGuiImplGlfw
+
 
 class ImGuiOpenGlWrapper(
         private val window: Window,
@@ -21,7 +23,7 @@ class ImGuiOpenGlWrapper(
 
         log.info("Initializing ImGui for OpenGL")
 
-        ImGui.createContext()
+        initImGui()
         imguiGlfw.init(window.id, true)
         imguiGl3.init(null)
     }
@@ -37,5 +39,11 @@ class ImGuiOpenGlWrapper(
         ImGui.destroyContext()
 
         window.shutdown()
+    }
+
+    private fun initImGui() {
+        ImGui.createContext()
+        val io = ImGui.getIO()
+        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable)
     }
 }

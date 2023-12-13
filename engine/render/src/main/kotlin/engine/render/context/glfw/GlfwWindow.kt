@@ -58,20 +58,32 @@ class GlfwWindow private constructor(
                 throw RenderRuntimeException("Failed to create the GLFW window")
             }
 
-            return ImGuiOpenGlWrapper(
-                window = GlfwWindow(
-                    id = windowId,
-                    width = props.width,
-                    height = props.height
-                ).also { window ->
-                    glfwMakeContextCurrent(window.id)
-                    glfwShowWindow(window.id)
-                    window.setVSync(props.vSync)
+//            return ImGuiOpenGlWrapper(
+//                window = GlfwWindow(
+//                    id = windowId,
+//                    width = props.width,
+//                    height = props.height
+//                ).also { window ->
+//                    glfwMakeContextCurrent(window.id)
+//                    glfwShowWindow(window.id)
+//                    window.setVSync(props.vSync)
+//
+//                    GL.createCapabilities() // Should we initialize it here?
+//                },
+//                enableGui = !isARMArchitecture() // ImGui JNI Version is not supported for ARM (yet)
+//            )
 
-                    GL.createCapabilities() // Should we initialize it here?
-                },
-                enableGui = !isARMArchitecture() // ImGui JNI Version is not supported for ARM (yet)
-            )
+            return GlfwWindow(
+                id = windowId,
+                width = props.width,
+                height = props.height
+            ).also { window ->
+                glfwMakeContextCurrent(window.id)
+                glfwShowWindow(window.id)
+                window.setVSync(props.vSync)
+
+                GL.createCapabilities() // Should we initialize it here?
+            }
         }
     }
 }

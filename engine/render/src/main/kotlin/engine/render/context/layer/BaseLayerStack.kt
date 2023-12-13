@@ -11,10 +11,13 @@ class BaseLayerStack : LayerStack {
     override fun pushLayer(layer: Layer) {
         layers.add(layer)
         layerInsertIndex++
+
+        layer.onAttach()
     }
 
     override fun pushOverlay(overlay: Layer) {
         layers.add(overlay)
+        overlay.onAttach()
     }
 
     override fun popLayer(layer: Layer) {
@@ -34,5 +37,5 @@ class BaseLayerStack : LayerStack {
         }
     }
 
-    fun getLayers() = layers
+    override fun getLayers() = layers
 }
