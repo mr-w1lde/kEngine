@@ -24,6 +24,7 @@ class ImGuiConsole {
             }
         }.also { it.start() })
     }
+
     fun render() {
         ImGui.begin("Console", ImGuiWindowFlags.HorizontalScrollbar)
 
