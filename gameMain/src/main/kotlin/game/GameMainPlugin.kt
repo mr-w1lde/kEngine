@@ -3,12 +3,29 @@ package game
 import engine.common.event.Event
 import engine.common.event.EventDispatcher
 import engine.common.getInput
+import engine.common.getRender
 import engine.common.input.InputEventListener
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RegisterPlugin
+import engine.common.render.layer.Layer
 
 private const val PLUGIN_NAME = "Game"
+
+class ExampleLayer : Layer(name = "Example", debugName = "ExampleLayer") {
+    override fun onAttach() { }
+
+    override fun onDetach() { }
+
+    override fun onUpdate() {
+        log.info("ExampleLayer::onUpdate")
+    }
+
+    override fun onEvent(event: Event) {
+        log.trace("{}", event)
+    }
+
+}
 
 @RegisterPlugin
 class GameMainPlugin : EnginePlugin, InputEventListener {
@@ -19,6 +36,7 @@ class GameMainPlugin : EnginePlugin, InputEventListener {
         log.info("Initializing Game Plugin")
 
         getInput().registerAnyInputEventListener(this)
+        getRender().layerStack().pushLayer(ExampleLayer())
     }
 
     override fun onGameStart() {

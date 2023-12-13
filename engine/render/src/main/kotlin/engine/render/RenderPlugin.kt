@@ -5,7 +5,7 @@ import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RENDER_PLUGIN_ORDER
 import engine.common.plugin.RegisterPlugin
-import engine.render.context.RenderImpl
+import engine.render.context.BaseRender
 
 private const val PLUGIN_NAME = "Render"
 
@@ -13,7 +13,7 @@ private const val PLUGIN_NAME = "Render"
     order = RENDER_PLUGIN_ORDER
 )
 class RenderPlugin : EnginePlugin {
-    private lateinit var renderSubSystem: RenderImpl
+    private lateinit var renderSubSystem: BaseRender
 
     override val name: String
         get() = PLUGIN_NAME
@@ -22,7 +22,7 @@ class RenderPlugin : EnginePlugin {
         log.info("Initializing Render Plugin")
 
         // Initialize access
-        renderSubSystem = SubSystem.register { RenderImpl() }.also {
+        renderSubSystem = SubSystem.register { BaseRender() }.also {
             it.createWindow()
         }
     }

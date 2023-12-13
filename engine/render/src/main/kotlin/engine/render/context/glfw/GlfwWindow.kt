@@ -3,9 +3,12 @@ package engine.render.context.glfw
 import engine.common.log.log
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
+import engine.render.context.imgui.ImGuiOpenGlWrapper
 import engine.render.exception.RenderRuntimeException
-import org.lwjgl.glfw.GLFW
+import org.lwjgl.glfw.GLFW.*
+import org.lwjgl.opengl.GL
 import org.lwjgl.system.MemoryUtil
+import org.lwjgl.system.Platform
 
 class GlfwWindow private constructor(
     override val id: Long,
@@ -15,19 +18,19 @@ class GlfwWindow private constructor(
     private var isVSync = false
 
     override fun onUpdate() {
-        GLFW.glfwPollEvents()
-        GLFW.glfwSwapBuffers(id)
+        glfwPollEvents()
+        glfwSwapBuffers(id)
     }
 
     override fun shutdown() {
-        GLFW.glfwDestroyWindow(id)
+        glfwDestroyWindow(id)
     }
 
     override fun setVSync(enable: Boolean) {
         if (enable) {
-            GLFW.glfwSwapInterval(1)
+            glfwSwapInterval(1)
         } else {
-            GLFW.glfwSwapInterval(0)
+            glfwSwapInterval(0)
         }
 
         isVSync = enable
@@ -40,25 +43,33 @@ class GlfwWindow private constructor(
             log.debug("Creating Window: (${props.title}) (${props.width}x${props.height})")
 
             // Configure GLFW
-            GLFW.glfwDefaultWindowHints() // optional, the current window hints are already the default
-            GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE) // the window will stay hidden after creation
-            GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE) // the window will be resizable
+            glfwDefaultWindowHints() // optional, the current window hints are already the default
+            glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE) // the window will stay hidden after creation
+            glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE) // the window will be resizable
 
-            val windowId =
-                GLFW.glfwCreateWindow(props.width, props.height, props.title, MemoryUtil.NULL, MemoryUtil.NULL)
+            if (Platform.get() == Platform.MACOSX) {
+                glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE)
+            }
+
+            val windowId = glfwCreateWindow(props.width, props.height, props.title, MemoryUtil.NULL, MemoryUtil.NULL)
 
             assert(windowId == MemoryUtil.NULL) {
                 throw RenderRuntimeException("Failed to create the GLFW window")
             }
 
-            return GlfwWindow(
-                id = windowId,
-                width = props.width,
-                height = props.height
-            ).also { window ->
-                GLFW.glfwMakeContextCurrent(window.id)
-                GLFW.glfwShowWindow(window.id)
-                window.setVSync(false)
+            return ImGuiOpenGlWrapper(
+                GlfwWindow(
+                    id = windowId,
+                    width = props.width,
+                    height = props.height
+                ).also { window ->
+                    glfwMakeContextCurrent(window.id)
+                    glfwShowWindow(window.id)
+                    window.setVSync(false)
+                    GL.createCapabilities() // Should we initialize it here?
+                }
+            ).also {
+                it.init()
             }
         }
     }

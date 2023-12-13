@@ -25,6 +25,10 @@ dependencies {
     implementation(platform("org.lwjgl:lwjgl-bom:${project.extra["lwjglVersion"]}"))
     implementation("org.lwjgl:lwjgl-glfw:${project.extra["lwjglVersion"]}")
     implementation("org.lwjgl:lwjgl-opengl:${project.extra["lwjglVersion"]}")
+    //ImGui
+    implementation("io.github.spair:imgui-java-lwjgl3:${project.extra["imguiVersion"]}")
+    implementation("io.github.spair:imgui-java-binding:${project.extra["imguiVersion"]}")
+    implementation("io.github.spair:imgui-java-natives-macos-ft:${project.extra["imguiVersion"]}")
 
     // Runtime
     runtimeOnly("org.lwjgl:lwjgl::$lwjglPlatform")
