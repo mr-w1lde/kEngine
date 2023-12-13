@@ -1,12 +1,17 @@
 package engine.render.context
 
 import engine.common.render.Render
+import engine.common.render.layer.LayerStack
 import engine.common.render.window.Window
 import engine.common.render.window.WindowProps
 import engine.render.context.glfw.GlfwWindow
+import engine.render.context.layer.BaseLayerStack
 import engine.render.exception.RenderRuntimeException
+import org.lwjgl.opengl.GL11.*
 
-internal class RenderImpl : Render {
+internal class BaseRender : Render {
+    private val layerStack = BaseLayerStack()
+
     override var mainWindow: Window? = null
 
     @Synchronized
@@ -19,4 +24,17 @@ internal class RenderImpl : Render {
         mainWindow = GlfwWindow.create(props)
         return mainWindow!!
     }
+
+    override fun update() {
+        glClearColor(1F, 0F, 0F, 1F)
+        glClear(GL_COLOR_BUFFER_BIT)
+
+        layerStack.getLayers().forEach {
+            it.onUpdate()
+        }
+
+        mainWindow!!.onUpdate()
+    }
+
+    override fun layerStack(): LayerStack = layerStack
 }

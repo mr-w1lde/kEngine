@@ -10,7 +10,7 @@ import engine.input.exception.InputRuntimeException
 import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 
-internal class InputImpl : Input {
+internal class BaseInput : Input {
     private val anyInputEventListeners = mutableSetOf<InputEventListener>()
 
     private val applicationEventListener = mutableSetOf<ApplicationEventListener>()
@@ -48,6 +48,10 @@ internal class InputImpl : Input {
                 GLFW.GLFW_RELEASE -> notifyAllAnyInputEventListeners(KeyReleasedEvent(key))
                 GLFW.GLFW_REPEAT -> notifyAllAnyInputEventListeners(KeyPressedEvent(key, isLongPress = true))
             }
+        }
+
+        GLFW.glfwSetCharCallback(windowId) { _: Long, key: Int ->
+            notifyAllAnyInputEventListeners(KeyTypedEvent(key))
         }
 
         GLFW.glfwSetMouseButtonCallback(windowId) { _: Long, button: Int, action: Int, _: Int ->

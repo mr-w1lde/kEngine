@@ -22,3 +22,14 @@ class KeyReleasedEvent(
         val flags = EventClassification.Input or EventClassification.Keyboard
     }
 }
+
+class KeyTypedEvent(
+    val keyCode: Int,
+) : Event(eventType, flags) {
+    override fun toString(): String = "KeyTyped(keyCode: $keyCode)"
+
+    companion object {
+        val eventType = EventType.KeyTyped
+        val flags = EventClassification.Input or EventClassification.Keyboard
+    }
+}

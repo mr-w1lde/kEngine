@@ -3,10 +3,12 @@ package game
 import engine.common.event.Event
 import engine.common.event.EventDispatcher
 import engine.common.getInput
+import engine.common.getRender
 import engine.common.input.InputEventListener
 import engine.common.log.log
 import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RegisterPlugin
+import engine.common.render.layer.Layer
 
 private const val PLUGIN_NAME = "Game"
 
@@ -39,6 +41,7 @@ class GameMainPlugin : EnginePlugin, InputEventListener {
             log.trace("onAnyInputEvent, {}", it.toString())
             true
         }
+
         log.trace("{}", event.toString())
     }
 }
