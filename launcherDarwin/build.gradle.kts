@@ -42,11 +42,7 @@ tasks {
     }
     runShadow {
         val args = listOf("-XstartOnFirstThread", "-Dorg.lwjgl.util.Debug=true")
-        if (jvmArgs != null) {
-            jvmArgs!!.plusAssign(args)
-        } else {
-            jvmArgs = args
-        }
+        jvmArgs?.plusAssign(args)
     }
 }
 
