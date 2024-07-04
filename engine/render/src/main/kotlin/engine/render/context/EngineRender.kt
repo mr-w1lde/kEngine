@@ -9,7 +9,7 @@ import engine.render.context.layer.BaseLayerStack
 import engine.render.exception.RenderRuntimeException
 import org.lwjgl.opengl.GL11.*
 
-internal class BaseRender : Render {
+internal class EngineRender : Render {
     private val layerStack = BaseLayerStack()
 
     override var mainWindow: Window? = null

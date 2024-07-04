@@ -2,6 +2,7 @@ package engine.common
 
 import engine.common.input.Input
 import engine.common.render.Render
+import engine.common.system.System
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.superclasses
@@ -52,5 +53,6 @@ fun <T : SubSystem> getSubSystem(kClass: KClass<T>): T {
 
 // ENGINE READY TO USE FUNC
 
+fun getSystem() = getSubSystem(System::class)
 fun getInput() = getSubSystem(Input::class)
 fun getRender() = getSubSystem(Render::class)

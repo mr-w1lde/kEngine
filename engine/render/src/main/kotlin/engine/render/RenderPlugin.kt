@@ -7,7 +7,7 @@ import engine.common.plugin.EnginePlugin
 import engine.common.plugin.RENDER_PLUGIN_ORDER
 import engine.common.plugin.RegisterPlugin
 import engine.common.render.layer.Layer
-import engine.render.context.BaseRender
+import engine.render.context.EngineRender
 import engine.render.context.imgui.layer.ImGuiLayer
 
 private const val PLUGIN_NAME = "Render"
@@ -16,7 +16,7 @@ private const val PLUGIN_NAME = "Render"
     order = RENDER_PLUGIN_ORDER
 )
 class RenderPlugin : EnginePlugin {
-    private lateinit var renderSubSystem: BaseRender
+    private lateinit var renderSubSystem: EngineRender
 
     override val name: String
         get() = PLUGIN_NAME
@@ -25,14 +25,16 @@ class RenderPlugin : EnginePlugin {
         log.info("Initializing Render Plugin")
 
         // Initialize access
-        renderSubSystem = SubSystem.register { BaseRender() }.also {
-            it.createWindow()
-        }
+        renderSubSystem = SubSystem
+            .register { EngineRender() }
+            .also(EngineRender::createWindow)
 
         //Init ImGui
         if (!isARMArchitecture()) {
             log.info("Initializing ImGuiLayer because is not ARM Architecture (not supported yet)")
-            renderSubSystem.layerStack().pushLayer(ImGuiLayer(renderSubSystem.mainWindow!!))
+            renderSubSystem.layerStack().pushLayer(
+                ImGuiLayer(renderSubSystem.mainWindow!!)
+            )
         }
     }
 

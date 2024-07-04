@@ -10,7 +10,7 @@ import engine.input.exception.InputRuntimeException
 import org.lwjgl.glfw.Callbacks
 import org.lwjgl.glfw.GLFW
 
-internal class BaseInput : Input {
+internal class EngineInput : Input {
     private val anyInputEventListeners = mutableSetOf<InputEventListener>()
 
     private val applicationEventListener = mutableSetOf<ApplicationEventListener>()

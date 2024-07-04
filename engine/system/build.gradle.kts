@@ -5,4 +5,5 @@ plugins {
 
 dependencies {
     compileOnly(projects.engine.common)
+    implementation("org.ini4j:ini4j:0.5.4")
 }
