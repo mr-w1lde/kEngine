@@ -9,25 +9,22 @@ object PluginManager {
     fun loadPlugins() {
         ReflectionManager.getEnginePlugins()
             .sortByOrder()
-            .forEach {
-                val newInstance = it.getConstructor().newInstance()
-                validateOnExist(newInstance.name)
+            .forEach { plugin ->
+                val newInstance = plugin.getConstructor()
+                    .newInstance()
+                    .also { validateOnExist(it.name) }
 
-                log.info("Loading plugin class: ${it.simpleName} with PluginName: ${newInstance.name}")
+                log.info("Loading plugin class: ${plugin.simpleName} with PluginName: ${newInstance.name}")
                 plugins[newInstance.name] = newInstance
             }
     }
 
     fun sendOnInitializeToAll() {
-        plugins.values.forEach {
-            it.onInitialize()
-        }
+        plugins.values.forEach(EnginePlugin::onInitialize)
     }
 
     fun sendOnShutdownToAll() {
-        plugins.values.reversed().forEach {
-            it.onShutdown()
-        }
+        plugins.values.reversed().forEach(EnginePlugin::onShutdown)
     }
 
     private fun Set<Class<out EnginePlugin>>.sortByOrder(): Set<Class<out EnginePlugin>> {

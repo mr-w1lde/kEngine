@@ -26,7 +26,7 @@ internal class BaseRender : Render {
     }
 
     override fun update() {
-        glClearColor(1F, 0F, 0F, 1F)
+        glClearColor(0F, 0F, 0F, 1F)
         glClear(GL_COLOR_BUFFER_BIT)
 
         layerStack.getLayers().forEach {

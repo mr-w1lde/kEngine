@@ -26,12 +26,7 @@ class GlfwWindow private constructor(
     }
 
     override fun setVSync(enable: Boolean) {
-        if (enable) {
-            glfwSwapInterval(1)
-        } else {
-            glfwSwapInterval(0)
-        }
-
+        glfwSwapInterval(if(enable) 1 else 0)
         isVSync = enable
     }
 
